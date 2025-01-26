@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+p, h1 {
+  margin: 0;
+}
+
+#content {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+/* --- Sidebar Styles --- */
+#sidebar {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: #353535;
+  color: white;
+  height: 100%;
+}
+
+#sidebar h1 {
+  font-size: 32px;
+}
+
+#sidebar-list {
+  display: flex;
+  flex-flow: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-list-item,
+#projects-list-item {
+  cursor: pointer;
+  transition: ease 100ms;
+}
+
+.sidebar-list-item:hover,
+#projects-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-list-item,
+#logo-container,
+#projects-list-item {
+  display: grid;
+  grid-template-columns: 32px 4fr 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+}
+
+/* Align icons to the center, also aligned the to logo icon */
+.sidebar-list-item svg,
+.sidebar-list-item img,
+.sidebar-list-item .badge,
+#projects-list-item svg {
+  justify-self: center;
+  width: 24px;
+}
+
+.sidebar-list-item-active {
+  color: #93bacb;
+  font-weight: bold;
+}
+
+/* Send About list item to the bottom */
+.sidebar-list-item:last-child {
+  margin-top: auto;
+}
+
+#projects-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#projects-container li {
+  padding: 24px 80px;
+}
+
+#projects-container li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.badge {
+  width: min-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  text-align: center;
+  padding: 4px;
+}
+
+/* --- Icon sizes --- */
+.icon-medium {
+  width: 32px;
+}
