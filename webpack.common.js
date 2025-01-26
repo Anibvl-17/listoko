@@ -7,7 +7,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Listoko!',
+      template: './src/template.html',
     }),
   ],
   output: {
