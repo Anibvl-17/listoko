@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+  --color-primary: #205072;
+  --color-primary-light: #205072c9;
+  --color-good: #0f4414;
+  --color-warning: #f08c00;
+  --color-danger: #e03131;
+}
+
 html {
   height: 100%;
 }
@@ -8,6 +16,8 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
   display: grid;
   grid-template-columns: 1fr 4fr;
 }
@@ -15,11 +25,111 @@ body {
 p, h1 {
   margin: 0;
 }
-
+/* --- Content styles */
 #content {
   height: 100%;
+  margin-block: 6rem;
+  margin-inline: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.content-title {
+  color: var(--color-primary);
+  letter-spacing: 2px;
+}
+
+.content-progress {
+  color: var(--color-primary-light);
+}
+
+.content-description {
+  width: 80ch;
+  margin-bottom: 1rem;
+}
+
+#content-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+#content-list li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  padding-inline: 1rem;
+}
+
+#content-list li:last-child {
+  border-bottom: none;
+} 
+
+.content-list-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.content-list-item {
+  margin: 0;
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 0.3fr 2fr 0.1fr 2fr 1fr;
+  align-items: center;
+  padding-block: 1rem;
+}
+
+.content-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* --- Icon buttons --- */
+.icon-btn {
+  background-color: transparent;
+  border-radius: 100%;
+  border: none;
+  cursor: pointer;
+  transition: ease 100ms;
+  display: grid;
+  padding: 4px;
+  place-content: center;
+}
+
+.icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.icon-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.task-actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+/* --- Text buttons --- */
+.text-btn {
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: ease 100ms;
+  padding: 8px;
+  margin: 4px;
+}
+
+.text-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.new-task {
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 /* --- Sidebar Styles --- */
@@ -97,15 +207,40 @@ p, h1 {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.badge {
-  width: min-content;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  text-align: center;
-  padding: 4px;
-}
-
 /* --- Icon sizes --- */
 .icon-medium {
   width: 32px;
+}
+
+/* --- Badge styles --- */
+.badge {
+  font-size: 14px;
+  width: max-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 4px;
+  display: grid;
+  place-content: center;
+}
+
+/* Add padding for a proper display, i.e when using text-badges */
+.badge-large {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.badge-fill {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.badge-outline {
+  border: 2px solid var(--color-primary);
+}
+
+.badge-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
 }
