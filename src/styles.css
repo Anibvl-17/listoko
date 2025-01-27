@@ -27,7 +27,6 @@ p, h1 {
 }
 /* --- Content styles */
 #content {
-  height: 100%;
   margin-block: 6rem;
   margin-inline: auto;
   display: flex;
@@ -138,7 +137,7 @@ p, h1 {
   grid-template-rows: auto 1fr;
   background-color: #353535;
   color: white;
-  height: 100%;
+  max-height: 100%;
 }
 
 #sidebar h1 {
@@ -197,10 +196,23 @@ p, h1 {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
+  max-height: calc(72px * 5); /* shows 5 project-items */
+}
+
+#projects-container ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+#projects-container ul::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
 }
 
 #projects-container li {
-  padding: 24px 80px;
+  padding: 24px 24px 24px 80px;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }
 
 #projects-container li:hover {
