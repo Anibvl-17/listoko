@@ -2,16 +2,11 @@ export default class DataController {
 
   // Returns a default object according to the section or
   // returns a project object if the section is 'project'
-  static getData(section, id = null) {
-    if (section === 'today') {
-      return todaySection;
-    } else if (section === 'quicklist') {
-      return quicklistSection;
-    } else if (section === 'all-tasks') {
-      return allTasksSection;
-    } else if (section === 'project' && id !== null) {
-      return DataController.getProject(id);
-    }
+  static getData(id) {
+    if (id === 'today') return todaySection;
+    else if (id === 'quicklist') return quicklistSection;
+    else if (id === 'all-tasks') return allTasksSection;
+    else return DataController.getProject(id);
   }
 
   // --- Tasks related methods ---

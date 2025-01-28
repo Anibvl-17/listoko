@@ -10,7 +10,6 @@ export function loadSidebarProjects() {
   DataController.getProjects().forEach(project => {
     const projectItem = document.createElement('li');
     projectItem.classList.add('sidebar-li');
-    projectItem.dataset.type = 'project';
     projectItem.dataset.id = project.id;
     projectItem.textContent = project.title;
 
@@ -65,17 +64,7 @@ function listItemClickHandler() {
 
   this.classList.add('sidebar-li-active');
 
-  const sectionType = this.dataset.type;
   const sectionId = this.dataset.id;
-  let sectionData;
-
-  if (sectionType === 'project' && sectionId !== null) {
-    sectionData = DataController.getData('project', sectionId);
-    loadContent(sectionData);
-    return;
-  }
-  
-  // Loads a default section
-  sectionData = DataController.getData(sectionType);
+  const sectionData = DataController.getData(sectionId);
   loadContent(sectionData);
 }
