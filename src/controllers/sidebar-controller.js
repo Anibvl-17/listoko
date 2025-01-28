@@ -58,9 +58,13 @@ export function loadSidebar() {
   });
 }
 
+export function loadLastProject() {
+  const lastProjectItem = document.querySelector('.projects-list').lastChild;
+  lastProjectItem.click();
+}
+
 function listItemClickHandler() {
-  document.querySelector('.sidebar-li-active')
-    .classList.remove('sidebar-li-active');
+  document.querySelector('.sidebar-li-active')?.classList.remove('sidebar-li-active');
 
   this.classList.add('sidebar-li-active');
 

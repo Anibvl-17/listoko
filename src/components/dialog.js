@@ -1,7 +1,7 @@
 import Project from "../objects/project";
 import DataController from "../controllers/data-controller";
 
-import { loadSidebarProjects } from "../controllers/sidebar-controller";
+import { loadSidebarProjects, loadLastProject } from "../controllers/sidebar-controller";
 
 const newProjectItem = document.getElementById('new-project');
 const newProjectDialog = document.getElementById('new-project-dialog');
@@ -32,6 +32,9 @@ newProjectButton.addEventListener('click', (e) => {
   // Save the new project and reload the sidebar projects list
   DataController.saveProject(project);
   loadSidebarProjects();
+
+  // Load the last project, which is the new project
+  loadLastProject();
 
   newProjectDialog.close();
 });
