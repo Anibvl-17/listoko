@@ -31,6 +31,9 @@ export function loadSidebar() {
 
   loadSidebarProjects();
 
+  // Simulate a click on the "Today" list item
+  sidebarListItems[0].click();
+
   const projectsListItem = document.getElementById('projects-li');
   const projectsListItemIcon = projectsListItem.querySelectorAll('svg')[1]; // The chevron icon
   projectsListItemIcon.style.transition = 'transform 0.3s';
