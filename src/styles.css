@@ -33,16 +33,32 @@ p, h1 {
   flex-flow: column nowrap;
 }
 
-.content-title {
+#content-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+#content-header div {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+}
+
+#content-header div button {
+  width: 48px;
+}
+
+#content-title {
   color: var(--color-primary);
   letter-spacing: 2px;
 }
 
-.content-progress {
+#content-progress {
   color: var(--color-primary-light);
 }
 
-.content-description {
+#content-description {
   width: 80ch;
   margin-bottom: 1rem;
 }
@@ -152,20 +168,20 @@ p, h1 {
   margin: 0;
 }
 
-.sidebar-list-item,
-#projects-list-item {
+.sidebar-li,
+.sidebar-li-action {
   cursor: pointer;
   transition: ease 100ms;
 }
 
-.sidebar-list-item:hover,
-#projects-list-item:hover {
+.sidebar-li:hover,
+.sidebar-li-action:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.sidebar-list-item,
-#logo-container,
-#projects-list-item {
+.sidebar-li,
+.sidebar-li-action,
+#logo-container {
   display: grid;
   grid-template-columns: 32px 4fr 1fr;
   align-items: center;
@@ -174,21 +190,20 @@ p, h1 {
 }
 
 /* Align icons to the center, also aligned the to logo icon */
-.sidebar-list-item svg,
-.sidebar-list-item img,
-.sidebar-list-item .badge,
-#projects-list-item svg {
+#sidebar-list img,
+#sidebar-list svg, 
+#sidebar-list .badge {
   justify-self: center;
   width: 24px;
 }
 
-.sidebar-list-item-active {
+.sidebar-li-active {
   color: #93bacb;
   font-weight: bold;
 }
 
 /* Send About list item to the bottom */
-.sidebar-list-item:last-child {
+.sidebar-li-action:last-child {
   margin-top: auto;
 }
 
@@ -255,4 +270,71 @@ p, h1 {
   display: flex;
   flex-flow: row wrap;
   gap: 8px;
+}
+
+/* --- Dialog styles --- */
+dialog {
+  border: none;
+  border-radius: 16px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h3 {
+  text-align: center;
+  margin: 0;
+}
+
+dialog form input,
+dialog form textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 8px;
+}
+
+dialog form textarea {
+  resize: none;
+  width: 50ch;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-block: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.form-actions button {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 8px;
+  outline: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.dialog-confirm {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.dialog-confirm:hover {
+  filter: brightness(1.2);
+}
+
+.dialog-cancel {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.dialog-cancel:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
