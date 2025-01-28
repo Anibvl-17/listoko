@@ -197,7 +197,7 @@ p, h1 {
   padding: 0;
   margin: 0;
   overflow-y: scroll;
-  max-height: calc(72px * 5); /* shows 5 project-items */
+  max-height: calc(72px * 4); /* shows 4 project-items */
 }
 
 #projects-container ul::-webkit-scrollbar {
