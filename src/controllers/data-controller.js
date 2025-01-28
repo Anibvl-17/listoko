@@ -1,3 +1,5 @@
+import Project from "../objects/project";
+
 export default class DataController {
 
   // Returns a default object according to the section or
@@ -10,6 +12,7 @@ export default class DataController {
   }
 
   // --- Tasks related methods ---
+
   static saveTask(projectId, task) {
     const project = DataController.getProject(projectId);
     project.tasks.push(task);
@@ -17,7 +20,7 @@ export default class DataController {
   }
 
   // --- Project related methods ---
-  
+
   static saveProject(project) {
     // Get array of projects from local storage and push the new project
     const projects = DataController.getProjects();
@@ -33,7 +36,8 @@ export default class DataController {
   }
 
   static getProject(id) {
-    return DataController.getProjects().find(project => project.id == id);
+    const projectData = DataController.getProjects().find(project => project.id == id);
+    return new Project(projectData.title, projectData.description, projectData.dueDate, projectData.tasks);
   }
 
   // Generates a unique ID for a new project, based on the last project id
@@ -46,8 +50,10 @@ export default class DataController {
 
 // Default Today section
 const todaySection = {
+  id: 'today',
   title: 'Today',
   description: "Today's tasks",
+  dueDate: new Date(),
   tasks: [
     {
       id: 1,
@@ -72,8 +78,10 @@ const todaySection = {
 
 // Default Quicklist section
 const quicklistSection = {
+  id: 'quicklist',
   title: 'Quicklist',
   description: 'Quickly add tasks here',
+  dueDate: new Date(),
   tasks: [
     {
       id: 1,
@@ -98,8 +106,10 @@ const quicklistSection = {
 
 // Default All Tasks section
 const allTasksSection = {
+  id: 'all-tasks',
   title: "All Tasks",
   description: "All tasks",
+  dueDate: new Date(),
   tasks: [
     {
       id: 1,
