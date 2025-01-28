@@ -52,7 +52,8 @@ export default class DataController {
 const todaySection = {
   id: 'today',
   title: 'Today',
-  description: "Today's tasks",
+  description: 'Stay focused on what matters now! Track your tasks for the day and complete them before midnight. ' +
+               'A fresh start awaits tomorrow—make every task count!',
   dueDate: new Date(),
   tasks: [
     {
@@ -80,7 +81,8 @@ const todaySection = {
 const quicklistSection = {
   id: 'quicklist',
   title: 'Quicklist',
-  description: 'Quickly add tasks here',
+  description: 'Jot down quick tasks in a snap! This list is your instant workspace for ideas and ' +
+               'reminders. It stays until you reset it—perfect for fast notes and urgent to-dos!',
   dueDate: new Date(),
   tasks: [
     {
@@ -107,8 +109,9 @@ const quicklistSection = {
 // Default All Tasks section
 const allTasksSection = {
   id: 'all-tasks',
-  title: "All Tasks",
-  description: "All tasks",
+  title: 'All Tasks',
+  description: 'Your complete task hub! Find every to-do you\'ve created, from standalone notes to project ' + 
+               'tasks. Stay organized, track progress, and never lose sight of what\'s next!',
   dueDate: new Date(),
   tasks: [
     {
