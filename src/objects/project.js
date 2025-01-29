@@ -39,18 +39,4 @@ export default class Project {
   toggleComplete() {
     this.isComplete = !this.isComplete;
   }
-
-  getCompletedTasks() {
-    return this.tasks.filter(task => task.isComplete);
-  }
-  
-  getPendingTasks() {
-    return this.tasks.filter(task => !task.isComplete);
-  }
-
-  getProgress() {
-    const totalTasks = this.tasks.length;
-    const completedTasks = this.getCompletedTasks().length;
-    return (completedTasks / 100) * totalTasks;
-  }
 }
