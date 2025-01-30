@@ -1,7 +1,7 @@
 export class ContentData {
 
-  constructor(title, description, dueDate, tasks) {
-    this.title = title;
+  constructor(name, description, dueDate, tasks) {
+    this.title = name;
     this.description = description;
     this.dueDate = dueDate;
     this.tasks = tasks;
@@ -34,6 +34,11 @@ export class ContentData {
   getProgress() {
     const totalTasks = this.getTasks().length;
     const completedTasks = this.getCompletedTasks().length;
+
+    if (totalTasks === 0) {
+      return 0;
+    }
+
     return Math.round((completedTasks / totalTasks) * 100);
   }
 }
