@@ -1,38 +1,41 @@
+import { Dialog } from "../components/dialog";
 import { loadContent } from "./content-controller";
-import DataController from "./data-controller";
+import { DataController } from "./data-controller";
+// import DataController from "./data-controller";
 
-export function loadSidebarProjects() {
-  // Get the projects list element and clear its content
-  const projectsList = document.querySelector('.projects-list');
+export function updateSidebarProjects(selectLastProject = false) {
+  const projectsList = document.getElementById('projects-list');
   projectsList.textContent = '';
 
-  console.log('Loading projects...');
-  DataController.getProjects().forEach(project => {
+  const projects = DataController.getAllProjects();
+  projects.forEach(project => {
     const projectItem = document.createElement('li');
     projectItem.classList.add('sidebar-li');
-    projectItem.dataset.id = project.id;
-    projectItem.textContent = project.title;
+    projectItem.dataset.name = project.name;
+    projectItem.textContent = project.name;
 
     projectItem.addEventListener('click', listItemClickHandler);
 
     projectsList.appendChild(projectItem);
   });
+
+  if (selectLastProject) {
+    const lastProjectItem = document.getElementById('projects-list').lastChild;
+    lastProjectItem.click();
+  }
 }
 
+// Initial sidebar load
 export function loadSidebar() {
   const sidebarListItems = document.querySelectorAll('.sidebar-li');
-
-  // Handle the click event on the sidebar list items
-  // Updates the active list item style
-  // Updates the main content based on the selected list item
   sidebarListItems.forEach((listItem) => {
     listItem.addEventListener('click', listItemClickHandler);
   });
 
-  loadSidebarProjects();
-
   // Simulate a click on the "Today" list item
   sidebarListItems[0].click();
+
+  updateSidebarProjects();
 
   const projectsListItem = document.getElementById('projects-li');
   const projectsListItemIcon = projectsListItem.querySelectorAll('svg')[1]; // The chevron icon
@@ -61,17 +64,21 @@ export function loadSidebar() {
   });
 }
 
-export function loadLastProject() {
-  const lastProjectItem = document.querySelector('.projects-list').lastChild;
-  lastProjectItem.click();
-}
-
+// Handle the click event on the sidebar list items
+// Updates the active list item style
+// Updates the main content based on the selected list item
 function listItemClickHandler() {
   document.querySelector('.sidebar-li-active')?.classList.remove('sidebar-li-active');
 
   this.classList.add('sidebar-li-active');
 
-  const sectionId = this.dataset.id;
-  const sectionData = DataController.getData(sectionId);
-  loadContent(sectionData);
+  const sectionName = this.dataset.name;
+  loadContent(sectionName);
 }
+
+// Handles the click event on the 'New Project' list item
+const newProjectItem = document.getElementById('new-project');
+newProjectItem.addEventListener('click', () => {
+  const dialog = new Dialog(Dialog.DIALOG_NEW, Dialog.DIALOG_PROJECT, null);
+  dialog.show();
+});
