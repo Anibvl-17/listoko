@@ -1,8 +1,3 @@
-import Project from "../objects/project";
-import DataController from "../controllers/data-controller";
-
-//import { loadSidebarProjects, loadLastProject } from "../controllers/sidebar-controller";
-
 export const DIALOG_EDIT = 'dialog_edit';
 export const DIALOG_NEW = 'dialog_new';
 export const DIALOG_TASK = 'dialog_task';
