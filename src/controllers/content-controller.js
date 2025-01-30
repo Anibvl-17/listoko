@@ -1,23 +1,38 @@
 import { buildListItem } from "../components/content-list-item";
-import Project from "../objects/project";
+import { Dialog } from "../components/dialog";
+import { getDefaultSection } from "../objects/default-sections";
+import { ContentData } from "../objects/content-data";
+import { DataController } from "./data-controller";
 
-export function loadContent(data) {
-  if (data.id === 'today' || data.id === 'quicklist' || data.id === 'all-tasks') {
-    data = loadDefaultContent(data);
+let contentData;
+
+export function loadContent(name) {
+  let data;
+
+  if (name === 'today' || name === 'quicklist' || name === 'all-tasks') {
+    data = getDefaultSection(name);
+    document.getElementById('edit-project').style.visibility = 'hidden';
+    document.getElementById('delete-project').style.visibility = 'hidden';
+  } else {
+    data = DataController.getProject(name);
+    document.getElementById('edit-project').style.visibility = 'visible';
+    document.getElementById('delete-project').style.visibility = 'visible';
   }
 
-  const title = data.title;
-  const progress = data.getProgress();
-  const description = data.description;
-  const completedTasks = data.getCompletedTasks().length;
-  const pendingTasks = data.getPendingTasks().length;
-  const tasks = data.tasks;
+  contentData = new ContentData(data.name, data.description, data.dueDate, data.tasks);
+
+  const title = contentData.getTitle();
+  const progress = contentData.getProgress();
+  const description = contentData.getDescription();
+  const completedTasks = contentData.getCompletedTasks().length;
+  const pendingTasks = contentData.getPendingTasks().length;
+  const tasks = contentData.getTasks();
 
   const titleElement = document.getElementById('content-title');
   titleElement.textContent = title;
 
   const progressElement = document.getElementById('content-progress');
-  progressElement.textContent = progress + '%';
+  progressElement.textContent = progress + '% complete';
 
   const descriptionElement = document.getElementById('content-description');
   descriptionElement.textContent = description;
@@ -35,16 +50,10 @@ export function loadContent(data) {
     const taskItem = buildListItem(task.name, task.dueDate);
     tasksList.appendChild(taskItem);
   });
-
 }
 
-// Loads the default content for the 'Today', 'Quicklist', and 'All Tasks' sections
-// as projects, to access the project methods like getProgress or getCompletedTasks
-function loadDefaultContent(data) {
-  return new Project(
-    data.title,
-    data.description,
-    data.dueDate,
-    data.tasks,
-  );
-}
+const editProjectBtn = document.getElementById('edit-project');
+
+editProjectBtn.addEventListener('click', () => {
+  new Dialog(Dialog.DIALOG_EDIT, Dialog.DIALOG_PROJECT, contentData).show();
+});
