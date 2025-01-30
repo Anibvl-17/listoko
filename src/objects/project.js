@@ -1,9 +1,8 @@
 import DataController from "../controllers/data-controller";
 
 export default class Project {
-  constructor(title, description, dueDate, tasks) {
-    this.id = DataController.generateId();
-    this.title = title;
+  constructor(name, description, dueDate, tasks) {
+    this.name = name;
     this.description = description;
     this.dueDate = dueDate;
     this.tasks = tasks;
@@ -24,8 +23,8 @@ export default class Project {
     this.tasks[index] = newTask;
   }
 
-  updateTitle(title) {
-    this.title = title;
+  updateName(name) {
+    this.name = name;
   }
 
   updateDescription(description) {
