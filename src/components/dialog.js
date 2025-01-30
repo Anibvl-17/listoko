@@ -1,4 +1,5 @@
 import { DataController } from "../controllers/data-controller";
+import { updateSidebarProjects } from "../controllers/sidebar-controller";
 import Project from "../objects/project";
 
 export class Dialog {
@@ -81,6 +82,7 @@ export class Dialog {
       if (DataController.saveProject(project)) {
         console.log('Project saved.');
         Dialog.dialog.close();
+        updateSidebarProjects();
       } else {
         alert('Project already exists, please choose another name.');
       }
