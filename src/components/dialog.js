@@ -2,6 +2,7 @@ import { loadContent } from "../controllers/content-controller";
 import { DataController } from "../controllers/data-controller";
 import { selectProject, updateSidebarProjects } from "../controllers/sidebar-controller";
 import Project from "../objects/project";
+import { Task } from "../objects/task";
 
 export class Dialog {
   static DIALOG_EDIT = 'dialog_edit';
@@ -34,20 +35,27 @@ export class Dialog {
     Dialog.dialogCancel.addEventListener('click', () => Dialog.dialog.close() );
 
     if (mode === Dialog.DIALOG_EDIT) {
+      Dialog.dialogConfirm.removeEventListener('click', this.confirmNew);
       Dialog.dialogConfirm.addEventListener('click', this.confirmEdit);
+
       Dialog.dialogConfirm.object = object; // Passing the object type to the element
       Dialog.dialogConfirm.data = data; // Passing the original data to the element
-      Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'Edit Project' : 'Edit Task';
       Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Save Project' : 'Save Task';
+
+      Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'Edit Project' : 'Edit Task';
 
       Dialog.inputName.value = data.title;
       Dialog.inputDescription.value = data.description;
       Dialog.inputDueDate.value = data.dueDate.toString();
     } else {
+      Dialog.dialogConfirm.removeEventListener('click', this.confirmEdit);
       Dialog.dialogConfirm.addEventListener('click', this.confirmNew);
+
       Dialog.dialogConfirm.object = object; // Passing the object type to the element
-      Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'New Project' : 'New Task';
+      Dialog.dialogConfirm.data = data; // Passing the original data to the element
       Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Create Project' : 'Create Task';
+      
+      Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'New Project' : 'New Task';
     }
   }
 
@@ -55,7 +63,7 @@ export class Dialog {
     Dialog.dialog.showModal();
   }
 
- static getFormData() {
+  static getFormData() {
     const name = Dialog.inputName.value;
     const description = Dialog.inputDescription.value;
     const dueDate = Dialog.inputDueDate.value;
@@ -71,10 +79,9 @@ export class Dialog {
 
       // Create a new project without modifying the tasks.
       const newProject = new Project(data.name, data.description, data.dueDate, this.data.tasks);
+      const projectName = this.data.title;
       
-      if (DataController.updateProjectInfo(this.data.title, newProject)) {
-        console.log(`Project '${this.data.title}' edited: ${Dialog.inputName.value}`);
-
+      if (DataController.updateProjectInfo(projectName, newProject)) {
         // Update the sidebar project list and the content with new project info
         updateSidebarProjects(false);
         selectProject(newProject.name);
@@ -84,6 +91,9 @@ export class Dialog {
       }
     } else {
       console.log('Editing task...');
+      const projectName = this.data.projectName;
+
+      
       
     }
     
@@ -92,23 +102,27 @@ export class Dialog {
   confirmNew(e) {
     // Prevent the form from submitting
     e.preventDefault();
-    const formData = Dialog.getFormData();
+    const data = Dialog.getFormData();
 
     if (this.object === Dialog.DIALOG_PROJECT) {
-      console.log('Creating new project...');
-
-      const project = new Project(formData.name, formData.description, formData.dueDate, []);
+      const project = new Project(data.name, data.description, data.dueDate, []);
 
       if (DataController.saveProject(project)) {
-        console.log('Project saved.');
         updateSidebarProjects(true);
         Dialog.dialog.close();
       } else {
         alert('Project already exists, please choose another name.');
+        console.log('object = ' + this.object + ', dataTitle = ' + this.data.title);
       }
     } else {
       console.log('Creating new task...');
-
+      const newTask = new Task(data.name, data.description, data.dueDate, false);
+      const projectName = this.data.title;
+      const project = DataController.getProject(projectName);
+      project.addTask(newTask);
+      DataController.updateProjectInfo(projectName, project);
+      selectProject(projectName);
+      Dialog.dialog.close();
     }
 
     // Data controller should add the new project or task to localStorage.
