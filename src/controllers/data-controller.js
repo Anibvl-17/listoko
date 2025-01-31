@@ -21,8 +21,7 @@ export class DataController {
 
     DataController.projects.push(project);
 
-    localStorage.removeItem('projects');
-    localStorage.setItem('projects', JSON.stringify(DataController.projects));
+    DataController.updateStorage();
     return true;
   }
 
@@ -59,9 +58,27 @@ export class DataController {
     }
 
     DataController.projects[index] = newProject;
-    localStorage.removeItem('projects');
-    localStorage.setItem('projects', JSON.stringify(DataController.projects));
+    DataController.updateStorage();
 
     return true;
+  }
+
+  static deleteProject(name) {
+    DataController.loadProjects();
+
+    const index = DataController.projects.findIndex(p => p.name === name);
+    if (index === -1) {
+      console.log(`Project '${name}' not found.`);
+      return false;
+    }
+
+    DataController.projects.splice(index, 1);
+    this.updateStorage();
+    return true;
+  }
+
+  static updateStorage() {
+    localStorage.removeItem('projects');
+    localStorage.setItem('projects', JSON.stringify(DataController.projects));
   }
 }
