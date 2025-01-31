@@ -26,7 +26,7 @@ export class DataController {
     return true;
   }
 
-  static checkIfProjectExists(name) {
+  static checkIfProjectExists(name) {  
     return DataController.projects.some(p => p.name === name);
   }
 
@@ -37,5 +37,31 @@ export class DataController {
 
   static getProject(name) {
     return DataController.projects.find(p => p.name === name);
+  }
+
+  static updateProjectInfo(originalProjectName, newProject) {
+    DataController.loadProjects();
+
+    const index = DataController.projects.findIndex(p => p.name === originalProjectName);
+
+    if (index === -1) {
+      console.log(`Project '${originalProjectName}' not found.`);
+      return false;
+    }
+
+    // If the project name IS different and the new name already exists, return false
+    if (
+      originalProjectName !== newProject.name &&
+      DataController.checkIfProjectExists(newProject.name)
+    ) {
+      console.log(`Project '${newProject.name}' already exists.`);
+      return false;
+    }
+
+    DataController.projects[index] = newProject;
+    localStorage.removeItem('projects');
+    localStorage.setItem('projects', JSON.stringify(DataController.projects));
+
+    return true;
   }
 }
