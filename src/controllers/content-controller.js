@@ -55,5 +55,7 @@ export function loadContent(name) {
 const editProjectBtn = document.getElementById('edit-project');
 
 editProjectBtn.addEventListener('click', () => {
+  // Notice that data is passing a ContentData object, not a Project object
+  // So, data.title is the project name.
   new Dialog(Dialog.DIALOG_EDIT, Dialog.DIALOG_PROJECT, contentData).show();
 });
