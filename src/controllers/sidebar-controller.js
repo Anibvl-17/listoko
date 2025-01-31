@@ -64,6 +64,13 @@ export function loadSidebar() {
   });
 }
 
+// It's probably going to be merged with the updateSidebarProjects function
+// For simplicity, I'm going to keep it separate for now
+export function selectProject(projectName) {
+  const projectItem = document.querySelector(`[data-name="${projectName}"]`);
+  projectItem.click();
+}
+
 // Handle the click event on the sidebar list items
 // Updates the active list item style
 // Updates the main content based on the selected list item
