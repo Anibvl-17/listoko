@@ -76,3 +76,8 @@ removeProjectBtn.addEventListener('click', () => {
     alert('Project not found.');
   }
 });
+
+const newTaskBtn = document.querySelector('.new-task');
+newTaskBtn.addEventListener('click', () => {
+  new Dialog(Dialog.DIALOG_NEW, Dialog.DIALOG_TASK, contentData).show();
+});
