@@ -1,3 +1,5 @@
+import Project from "../objects/project";
+
 export class DataController {
   static projects = [];
 
@@ -35,7 +37,10 @@ export class DataController {
   }
 
   static getProject(name) {
-    return DataController.projects.find(p => p.name === name);
+    DataController.loadProjects();
+    const data = DataController.projects.find(p => p.name === name);
+    const project = new Project(data.name, data.description, data.dueDate, data.tasks);
+    return project;
   }
 
   static updateProjectInfo(originalProjectName, newProject) {
