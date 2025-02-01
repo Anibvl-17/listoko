@@ -1,3 +1,4 @@
+import { getDefaultSection } from "../objects/default-sections";
 import Project from "../objects/project";
 
 export class DataController {
@@ -8,9 +9,8 @@ export class DataController {
 
     if (projects) {
       DataController.projects = projects;
-      console.log(`${projects.length} project(s) loaded.`);
     } else {
-      console.log('No projects found.');
+      return false;
     }
   }
 
@@ -85,5 +85,20 @@ export class DataController {
   static updateStorage() {
     localStorage.removeItem('projects');
     localStorage.setItem('projects', JSON.stringify(DataController.projects));
+  }
+
+  static checkStorage() {
+    if (localStorage.getItem('projects')) {
+      console.log('Projects found in localStorage.');
+    } else {
+      this.loadDefaultStorage();
+    }
+  }
+
+  static loadDefaultStorage() {
+    console.log('Loading default projects...');
+    this.saveProject(getDefaultSection('Today'));
+    this.saveProject(getDefaultSection('Quicklist'));
+    this.saveProject(getDefaultSection('All tasks'));
   }
 }
