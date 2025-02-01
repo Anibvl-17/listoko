@@ -1,4 +1,3 @@
-import { loadContent } from "../controllers/content-controller";
 import { DataController } from "../controllers/data-controller";
 import { selectProject, updateSidebarProjects } from "../controllers/sidebar-controller";
 import Project from "../objects/project";
@@ -40,8 +39,8 @@ export class Dialog {
 
       Dialog.dialogConfirm.object = object; // Passing the object type to the element
       Dialog.dialogConfirm.data = data; // Passing the original data to the element
-      Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Save Project' : 'Save Task';
 
+      Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Save Project' : 'Save Task';
       Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'Edit Project' : 'Edit Task';
 
       Dialog.inputName.value = data.title;
@@ -53,8 +52,8 @@ export class Dialog {
 
       Dialog.dialogConfirm.object = object; // Passing the object type to the element
       Dialog.dialogConfirm.data = data; // Passing the original data to the element
-      Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Create Project' : 'Create Task';
       
+      Dialog.dialogConfirm.textContent = object === Dialog.DIALOG_PROJECT ? 'Create Project' : 'Create Task';
       Dialog.dialogTitle.textContent = object === Dialog.DIALOG_PROJECT ? 'New Project' : 'New Task';
     }
   }
@@ -77,7 +76,7 @@ export class Dialog {
 
     if (this.object === Dialog.DIALOG_PROJECT) {
 
-      // Create a new project without modifying the tasks.
+      // Create a new project without modifying the tasks, and get original projectName
       const newProject = new Project(data.name, data.description, data.dueDate, this.data.tasks);
       const projectName = this.data.title;
       
@@ -87,7 +86,7 @@ export class Dialog {
         selectProject(newProject.name);
         Dialog.dialog.close();
       } else {
-        alert('An error occurred while editing the project.');
+        alert('The project already exists, please choose another name.');
       }
     } else {
       const newTask = new Task(data.name, data.description, data.dueDate, false);
@@ -103,9 +102,7 @@ export class Dialog {
       } else {
         alert('An error occurred while editing the task.');
       }
-
-    }
-    
+    } 
   }
 
   confirmNew(e) {
@@ -120,20 +117,17 @@ export class Dialog {
         updateSidebarProjects(true);
         Dialog.dialog.close();
       } else {
-        alert('Project already exists, please choose another name.');
-        console.log('object = ' + this.object + ', dataTitle = ' + this.data.title);
+        alert('The project already exists, please choose another name.');
       }
     } else {
-      console.log('Creating new task...');
       const newTask = new Task(data.name, data.description, data.dueDate, false);
       const projectName = this.data.title;
       const project = DataController.getProject(projectName);
+
       project.addTask(newTask);
       DataController.updateProjectInfo(projectName, project);
       selectProject(projectName);
       Dialog.dialog.close();
     }
-
-    // Data controller should add the new project or task to localStorage.
   }
 }
