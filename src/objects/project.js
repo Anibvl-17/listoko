@@ -18,9 +18,8 @@ export default class Project {
   }
 
   // This method is used to update a task after it has been edited
-  updateTask(task, newTask) {
-    const index = this.tasks.indexOf(task);
-    this.tasks[index] = newTask;
+  updateTask(taskIndex, newTask) {
+    this.tasks[taskIndex] = newTask;
   }
 
   updateName(name) {
