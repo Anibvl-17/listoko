@@ -1,5 +1,5 @@
 import { DataController } from "../controllers/data-controller";
-import { selectProject, updateSidebarProjects } from "../controllers/sidebar-controller";
+import { selectProject, updateBadge, updateSidebarProjects } from "../controllers/sidebar-controller";
 import Project from "../objects/project";
 import { Task } from "../objects/task";
 
@@ -127,6 +127,7 @@ export class Dialog {
       project.addTask(newTask);
       DataController.updateProjectInfo(projectName, project);
       selectProject(projectName);
+      updateBadge(projectName);
       Dialog.dialog.close();
     }
   }
