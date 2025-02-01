@@ -13,8 +13,8 @@ export default class Project {
     this.tasks.push(task);
   }
 
-  removeTask(task) {
-    this.tasks = this.tasks.filter(t => t !== task);
+  deleteTask(taskIndex) {
+    this.tasks.splice(taskIndex, 1);
   }
 
   // This method is used to update a task after it has been edited
