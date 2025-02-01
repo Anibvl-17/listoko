@@ -4,13 +4,15 @@ import deleteIcon from '../assets/delete.svg';
 import { Dialog } from './dialog';
 import { DataController } from '../controllers/data-controller';
 import { selectProject } from '../controllers/sidebar-controller';
+import { Task } from '../objects/task';
 
 // Missing: Event listeners for the buttons
 //          Checkbox functionality
 
 export function buildListItem(projectName, task, index) {
-  const name = task.name;
-  const date = task.dueDate;
+  const taskObject = new Task(task.name, task.description, task.dueDate, task.isComplete);
+  const name = taskObject.name;
+  const date = taskObject.dueDate;
 
   const listItem = document.createElement('li');
   listItem.classList.add('content-list-item');
@@ -18,6 +20,15 @@ export function buildListItem(projectName, task, index) {
   const taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
   taskCheckbox.classList.add('task-checkbox');
+  taskCheckbox.checked = taskObject.isComplete;
+  taskCheckbox.addEventListener('change', () => {
+    taskObject.toggleComplete();
+    const project = DataController.getProject(projectName);
+    project.updateTask(index, taskObject);
+    DataController.updateProjectInfo(projectName, project);
+    selectProject(projectName);
+  });
+
   listItem.appendChild(taskCheckbox);
 
   const taskName = document.createElement('p');
