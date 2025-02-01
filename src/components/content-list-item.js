@@ -3,7 +3,7 @@ import editIcon from '../assets/edit.svg';
 import deleteIcon from '../assets/delete.svg';
 import { Dialog } from './dialog';
 import { DataController } from '../controllers/data-controller';
-import { selectProject } from '../controllers/sidebar-controller';
+import { selectProject, updateBadge } from '../controllers/sidebar-controller';
 import { Task } from '../objects/task';
 
 // Missing: Event listeners for the buttons
@@ -27,6 +27,7 @@ export function buildListItem(projectName, task, index) {
     project.updateTask(index, taskObject);
     DataController.updateProjectInfo(projectName, project);
     selectProject(projectName);
+    updateBadge(projectName);
   });
 
   listItem.appendChild(taskCheckbox);
@@ -111,6 +112,7 @@ function deleteTask() {
 
     DataController.updateProjectInfo(this.projectName, project);
     selectProject(this.projectName);
+    updateBadge(this.projectName);
   } else {
     return;
   }
