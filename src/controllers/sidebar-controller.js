@@ -21,6 +21,11 @@ export function updateSidebarProjects(selectLastProject = false) {
 
     projectItem.addEventListener('click', listItemClickHandler);
 
+    const badge = document.createElement('span');
+    badge.classList.add('badge');
+    badge.textContent = project.tasks.filter(task => !task.isComplete).length;
+    projectItem.appendChild(badge);
+
     projectsList.appendChild(projectItem);
   });
 
@@ -28,6 +33,13 @@ export function updateSidebarProjects(selectLastProject = false) {
     const lastProjectItem = document.getElementById('projects-list').lastChild;
     lastProjectItem.click();
   }
+}
+
+export function updateBadge(projectName) {
+  const badge = document.querySelector(`[data-name="${projectName}"]`).querySelector('.badge');
+  const project = DataController.getProject(projectName);
+  const pendingTasks = project.tasks.filter(task => !task.isComplete).length;
+  badge.textContent = pendingTasks;
 }
 
 // Initial sidebar load
@@ -41,6 +53,9 @@ export function loadSidebar() {
   sidebarListItems[0].click();
 
   updateSidebarProjects();
+  updateBadge('Today');
+  updateBadge('Quicklist');
+  updateBadge('All tasks');
 
   const projectsListItem = document.getElementById('projects-li');
   const projectsListItemIcon = projectsListItem.querySelectorAll('svg')[1]; // The chevron icon
