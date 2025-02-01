@@ -1,11 +1,15 @@
 import expandIcon from '../assets/expand.svg';
 import editIcon from '../assets/edit.svg';
 import deleteIcon from '../assets/delete.svg';
+import { Dialog } from './dialog';
 
 // Missing: Event listeners for the buttons
 //          Checkbox functionality
 
-export function buildListItem(name, date) {
+export function buildListItem(projectName, task, index) {
+  const name = task.name;
+  const date = task.dueDate;
+
   const listItem = document.createElement('li');
   listItem.classList.add('content-list-item');
 
@@ -42,6 +46,12 @@ export function buildListItem(name, date) {
 
   const editTaskBtn = document.createElement('button');
   editTaskBtn.classList.add('icon-btn', 'edit-task');
+  editTaskBtn.addEventListener('click', editTask);
+  editTaskBtn.index = index;
+  editTaskBtn.projectName = projectName;
+  editTaskBtn.name = name;
+  editTaskBtn.description = task.description;
+  editTaskBtn.dueDate = date;
 
   const editTaskIcon = document.createElement('img');
   editTaskIcon.src = editIcon;
@@ -63,4 +73,15 @@ export function buildListItem(name, date) {
   listItem.appendChild(taskActions);
 
   return listItem;
+}
+
+function editTask() {
+  const data = {
+    index: this.index,
+    projectName: this.projectName,
+    title: this.name,
+    description: this.description,
+    dueDate: this.dueDate,
+  };
+  new Dialog(Dialog.DIALOG_EDIT, Dialog.DIALOG_TASK, data).show();
 }
