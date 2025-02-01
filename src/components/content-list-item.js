@@ -2,6 +2,8 @@ import expandIcon from '../assets/expand.svg';
 import editIcon from '../assets/edit.svg';
 import deleteIcon from '../assets/delete.svg';
 import { Dialog } from './dialog';
+import { DataController } from '../controllers/data-controller';
+import { selectProject } from '../controllers/sidebar-controller';
 
 // Missing: Event listeners for the buttons
 //          Checkbox functionality
@@ -61,6 +63,9 @@ export function buildListItem(projectName, task, index) {
 
   const deleteTaskBtn = document.createElement('button');
   deleteTaskBtn.classList.add('icon-btn', 'delete-task');
+  deleteTaskBtn.addEventListener('click', deleteTask);
+  deleteTaskBtn.index = index;
+  deleteTaskBtn.projectName = projectName;
 
   const deleteTaskIcon = document.createElement('img');
   deleteTaskIcon.src = deleteIcon;
@@ -84,4 +89,18 @@ function editTask() {
     dueDate: this.dueDate,
   };
   new Dialog(Dialog.DIALOG_EDIT, Dialog.DIALOG_TASK, data).show();
+}
+
+function deleteTask() {
+  const remove = confirm('Are you sure you want to delete this task?');
+
+  if (remove) {
+    const project = DataController.getProject(this.projectName);
+    project.deleteTask(this.index);
+
+    DataController.updateProjectInfo(this.projectName, project);
+    selectProject(this.projectName);
+  } else {
+    return;
+  }
 }
