@@ -47,8 +47,9 @@ export function loadContent(name) {
   const tasksList = document.getElementById('content-list');
   tasksList.textContent = '';
 
-  tasks.forEach(task => {
-    const taskItem = buildListItem(task.name, task.dueDate);
+  tasks.forEach((task, index) => {
+    const projectName = contentData.getTitle();
+    const taskItem = buildListItem(projectName, task, index);
     tasksList.appendChild(taskItem);
   });
 }
