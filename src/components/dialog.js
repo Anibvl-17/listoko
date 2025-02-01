@@ -90,11 +90,20 @@ export class Dialog {
         alert('An error occurred while editing the project.');
       }
     } else {
-      console.log('Editing task...');
+      const newTask = new Task(data.name, data.description, data.dueDate, false);
       const projectName = this.data.projectName;
+      const taskIndex = this.data.index;
+      const project = DataController.getProject(projectName);
 
-      
-      
+      project.updateTask(taskIndex, newTask);
+
+      if (DataController.updateProjectInfo(projectName, project)) {
+        selectProject(projectName);
+        Dialog.dialog.close();
+      } else {
+        alert('An error occurred while editing the task.');
+      }
+
     }
     
   }
