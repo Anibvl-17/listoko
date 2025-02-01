@@ -1,10 +1,15 @@
+import { Task } from "./task";
+
 export class ContentData {
 
   constructor(name, description, dueDate, tasks) {
     this.title = name;
     this.description = description;
     this.dueDate = dueDate;
-    this.tasks = tasks;
+    this.tasks = [];
+    tasks.forEach((task, index) => {
+      this.tasks[index] = new Task(task.name, task.description, task.dueDate, task.isComplete);
+    });
   }
 
   getTitle() {
