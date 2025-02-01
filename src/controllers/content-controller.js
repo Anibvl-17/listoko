@@ -1,6 +1,5 @@
 import { buildListItem } from "../components/content-list-item";
 import { Dialog } from "../components/dialog";
-import { getDefaultSection } from "../objects/default-sections";
 import { ContentData } from "../objects/content-data";
 import { DataController } from "./data-controller";
 import { selectProject, updateSidebarProjects } from "./sidebar-controller";
@@ -10,16 +9,15 @@ let contentData;
 export function loadContent(name) {
   let data;
 
-  if (name === 'today' || name === 'quicklist' || name === 'all-tasks') {
-    data = getDefaultSection(name);
+  if (name === 'Today' || name === 'Quicklist' || name === 'All tasks') {
     document.getElementById('edit-project').style.visibility = 'hidden';
     document.getElementById('delete-project').style.visibility = 'hidden';
   } else {
-    data = DataController.getProject(name);
     document.getElementById('edit-project').style.visibility = 'visible';
     document.getElementById('delete-project').style.visibility = 'visible';
   }
-
+  
+  data = DataController.getProject(name);
   contentData = new ContentData(data.name, data.description, data.dueDate, data.tasks);
 
   const title = contentData.getTitle();

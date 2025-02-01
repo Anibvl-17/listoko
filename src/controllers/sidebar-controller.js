@@ -9,6 +9,11 @@ export function updateSidebarProjects(selectLastProject = false) {
 
   const projects = DataController.getAllProjects();
   projects.forEach(project => {
+
+    if (project.name === 'Today' || project.name === 'Quicklist' || project.name === 'All tasks') {
+      return;
+    }
+
     const projectItem = document.createElement('li');
     projectItem.classList.add('sidebar-li');
     projectItem.dataset.name = project.name;
