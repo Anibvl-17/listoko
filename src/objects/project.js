@@ -1,5 +1,3 @@
-import DataController from "../controllers/data-controller";
-
 export default class Project {
   constructor(name, description, dueDate, tasks) {
     this.name = name;
