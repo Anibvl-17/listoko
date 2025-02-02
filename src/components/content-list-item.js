@@ -17,7 +17,7 @@ export function buildListItem(projectName, task, index) {
   const listItem = document.createElement('li');
   listItem.classList.add('content-li');
 
-  listItem.addEventListener('click', () => { toggleDescription(listItem, task, 'li') });
+  listItem.addEventListener('click', () => { toggleDescription(listItem, task) });
 
   const taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
