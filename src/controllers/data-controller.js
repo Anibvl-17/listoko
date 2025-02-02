@@ -99,6 +99,5 @@ export class DataController {
     console.log('Loading default projects...');
     this.saveProject(getDefaultSection('Today'));
     this.saveProject(getDefaultSection('Quicklist'));
-    this.saveProject(getDefaultSection('All tasks'));
   }
 }

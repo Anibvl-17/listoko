@@ -9,7 +9,7 @@ let contentData;
 export function loadContent(name) {
   let data;
 
-  if (name === 'Today' || name === 'Quicklist' || name === 'All tasks') {
+  if (name === 'Today' || name === 'Quicklist') {
     document.getElementById('edit-project').style.visibility = 'hidden';
     document.getElementById('delete-project').style.visibility = 'hidden';
   } else {

@@ -10,7 +10,7 @@ export function updateSidebarProjects(selectLastProject = false) {
   const projects = DataController.getAllProjects();
   projects.forEach(project => {
 
-    if (project.name === 'Today' || project.name === 'Quicklist' || project.name === 'All tasks') {
+    if (project.name === 'Today' || project.name === 'Quicklist') {
       return;
     }
 
@@ -55,7 +55,6 @@ export function loadSidebar() {
   updateSidebarProjects();
   updateBadge('Today');
   updateBadge('Quicklist');
-  updateBadge('All tasks');
 
   const projectsListItem = document.getElementById('projects-li');
   const projectsListItemIcon = projectsListItem.querySelectorAll('svg')[1]; // The chevron icon
