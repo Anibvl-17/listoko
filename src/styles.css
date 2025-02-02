@@ -87,7 +87,7 @@ p, h1 {
   padding-inline: 1rem; 
 }
 
-.content-list-item {
+.content-li {
   margin: 0;
   display: grid;
   grid-template-columns: 0.3fr 2fr 0.1fr 2fr 1fr;
@@ -95,7 +95,18 @@ p, h1 {
   padding-block: 1rem;
 }
 
-.content-list-item:hover {
+.content-li.expanded {
+  grid-template-columns: 0.3fr 2fr 0.1fr 2fr 1fr;
+  grid-template-rows: 1fr auto;
+}
+
+.task-description {
+  max-width: 55ch;
+  grid-column: 2 / span 3;
+  grid-row: 2;
+}
+
+.content-li:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 

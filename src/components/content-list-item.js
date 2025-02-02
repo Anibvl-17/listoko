@@ -15,7 +15,9 @@ export function buildListItem(projectName, task, index) {
   const date = taskObject.dueDate;
 
   const listItem = document.createElement('li');
-  listItem.classList.add('content-list-item');
+  listItem.classList.add('content-li');
+
+  listItem.addEventListener('click', () => { toggleDescription(listItem, task, 'li') });
 
   const taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
@@ -52,9 +54,15 @@ export function buildListItem(projectName, task, index) {
   const expandTaskBtn = document.createElement('button');
   expandTaskBtn.classList.add('icon-btn', 'expand-task');
 
+  expandTaskBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDescription(listItem, task) 
+  });
+
   const expandTaskIcon = document.createElement('img');
   expandTaskIcon.src = expandIcon;
   expandTaskIcon.alt = 'Expand task';
+  expandTaskIcon.style.transition = 'transform 0.2s';
 
   expandTaskBtn.appendChild(expandTaskIcon);
 
@@ -116,4 +124,25 @@ function deleteTask() {
   } else {
     return;
   }
+}
+
+function toggleDescription(item, task) {
+  const description = document.createElement('p');
+  description.classList.add('task-description');
+  description.textContent = task.description;
+
+  if (item.classList.contains('expanded')) {
+    item.classList.remove('expanded');
+    item.removeChild(item.lastChild);
+    rotateExpandIcon(item, 0);
+  } else {
+    item.classList.add('expanded');
+    item.appendChild(description);
+    rotateExpandIcon(item, 180);
+  }
+}
+
+function rotateExpandIcon(item, degrees) {
+  const icon = item.querySelector('.expand-task img');
+  icon.style.transform = `rotate(${degrees}deg)`;
 }
