@@ -45,11 +45,16 @@ export function loadContent(name) {
   const tasksList = document.getElementById('content-list');
   tasksList.textContent = '';
 
+  const completedTasksItems = [];
   tasks.forEach((task, index) => {
-    const projectName = contentData.getTitle();
-    const taskItem = buildListItem(projectName, task, index);
-    tasksList.appendChild(taskItem);
+    const taskItem = buildListItem(title, task, index);
+    if (task.isComplete) {
+      completedTasksItems.push(taskItem);
+    } else {
+      tasksList.appendChild(taskItem);
+    }
   });
+  completedTasksItems.forEach(task => tasksList.appendChild(task));
 }
 
 const editProjectBtn = document.getElementById('edit-project');
