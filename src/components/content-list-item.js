@@ -6,9 +6,6 @@ import { DataController } from '../controllers/data-controller';
 import { selectProject, updateBadge } from '../controllers/sidebar-controller';
 import { Task } from '../objects/task';
 
-// Missing: Event listeners for the buttons
-//          Checkbox functionality
-
 export function buildListItem(projectName, task, index) {
   const taskObject = new Task(task.name, task.description, task.dueDate, task.isComplete);
   const name = taskObject.name;
