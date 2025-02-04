@@ -7,6 +7,8 @@ export function getDefaultSection(sectionName) {
   else return todaySection;
 }
 
+const todayDate = new Date().toISOString().substring(0, 10);
+
 // Default Today section
 const todaySection = new Project(
   'Today',
@@ -14,11 +16,13 @@ const todaySection = new Project(
     'A fresh start awaits tomorrow—make every task count!',
   new Date().toDateString(),
   [
-    new Task('Task 1', 'Description 1', new Date().toDateString(), true),
-    new Task('Task 2', 'Description 2', new Date().toDateString(), false),
-    new Task('Task 3', 'Description 3', new Date().toDateString(), true)
+    new Task('Task 1', 'Description 1', todayDate, true),
+    new Task('Task 2', 'Description 2', todayDate, false),
+    new Task('Task 3', 'Description 3', todayDate, true)
   ]
 );
+
+
 
 const quicklistSection = new Project(
   'Quicklist',
@@ -26,8 +30,8 @@ const quicklistSection = new Project(
     'reminders. It stays until you reset it—perfect for fast notes and urgent to-dos!',
   new Date().toDateString(),
   [
-    new Task('Task 1', 'Description 1', new Date().toDateString(), false),
-    new Task('Task 2', 'Description 2', new Date().toDateString(), true),
-    new Task('Task 3', 'Description 3', new Date().toDateString(), false)
+    new Task('Task 1', 'Description 1', todayDate, false),
+    new Task('Task 2', 'Description 2', todayDate, true),
+    new Task('Task 3', 'Description 3', todayDate, false)
   ]
 );
