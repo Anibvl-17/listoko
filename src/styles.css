@@ -79,12 +79,9 @@ p, h1 {
 } 
 
 .content-list-header {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
   margin-top: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   padding-inline: 1rem; 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .content-li {
