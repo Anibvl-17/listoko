@@ -264,6 +264,7 @@ p, h1 {
   padding: 4px;
   display: grid;
   place-content: center;
+  transition: ease 200ms;
 }
 
 /* Add padding for a proper display, i.e when using text-badges */
@@ -271,6 +272,11 @@ p, h1 {
   font-size: 11px;
   padding: 4px 12px;
   border-radius: 8px;
+  cursor: default;
+}
+
+.badge-large:hover {
+  scale: 1.1;
 }
 
 .badge-fill {
