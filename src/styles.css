@@ -357,6 +357,21 @@ dialog form textarea {
   background-color: transparent;
   color: var(--color-primary);
 }
+
 .dialog-cancel:hover {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* --- Text styles --- */
+
+.text-good {
+  color: var(--color-good);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
 }
