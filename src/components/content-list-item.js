@@ -5,6 +5,7 @@ import { Dialog } from './dialog';
 import { DataController } from '../controllers/data-controller';
 import { selectProject, updateBadge } from '../controllers/sidebar-controller';
 import { Task } from '../objects/task';
+import { format, isBefore } from 'date-fns';
 
 export function buildListItem(projectName, task, index) {
   const taskObject = new Task(task.name, task.description, task.dueDate, task.isComplete);
@@ -43,6 +44,15 @@ export function buildListItem(projectName, task, index) {
   const dueDate = document.createElement('p');
   dueDate.classList.add('due-date');
   dueDate.textContent = 'Due on ' + date;
+  const taskDate = format(new Date(date), 'yyyy-MM-dd');
+  const todayDate = format(new Date(), 'yyyy-MM-dd');
+  
+  if (isBefore(taskDate, todayDate)) {
+    dueDate.classList.add('text-danger');
+  } else {
+    dueDate.classList.add('text-good');
+  }
+
   listItem.appendChild(dueDate);
 
   const taskActions = document.createElement('div');
