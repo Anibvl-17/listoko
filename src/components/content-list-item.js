@@ -108,6 +108,18 @@ export function buildListItem(projectName, task, index) {
   return listItem;
 }
 
+export function buildEmptyListItem() {
+  const emptyListItem = document.createElement('li');
+  emptyListItem.classList.add('content-li');
+  emptyListItem.id = 'empty-list-item';
+  
+  const emptyListText = document.createElement('p');
+  emptyListText.textContent = 'No tasks to display. Click the "+ New task" button to add a new task!';
+
+  emptyListItem.appendChild(emptyListText);
+  return emptyListItem;
+}
+
 function editTask() {
   const data = {
     index: this.index,
