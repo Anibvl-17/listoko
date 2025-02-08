@@ -5,12 +5,12 @@ import { Dialog } from './dialog';
 import { DataController } from '../controllers/data-controller';
 import { selectProject, updateBadge } from '../controllers/sidebar-controller';
 import { Task } from '../objects/task';
-import { format, isBefore } from 'date-fns';
+import { format, isBefore, isSameDay, isToday } from 'date-fns';
 
 export function buildListItem(projectName, task, index) {
   const taskObject = new Task(task.name, task.description, task.dueDate, task.isComplete);
   const name = taskObject.name;
-  const date = taskObject.dueDate;
+  let date = taskObject.dueDate;
 
   const listItem = document.createElement('li');
   listItem.classList.add('content-li');
@@ -43,14 +43,21 @@ export function buildListItem(projectName, task, index) {
 
   const dueDate = document.createElement('p');
   dueDate.classList.add('due-date');
-  const taskDate = format(new Date(date), 'yyyy-MM-dd');
+
+  // Fix date format because with hyphens "-" it subtracts 1 day.
+  date = new Date(date.replace(/-/g, '/'));
+
+  const taskDate = format(date, 'yyyy-MM-dd');
   const todayDate = format(new Date(), 'yyyy-MM-dd');
-  
-  if (isBefore(taskDate, todayDate)) {
-    dueDate.textContent = 'Overdue since ' + date;
+
+  if (isToday(date)) {
+    dueDate.textContent = 'Due today';
+    dueDate.classList.add('text-warning');
+  } else if (isBefore(taskDate, todayDate)) {
+    dueDate.textContent = 'Overdue since ' + taskDate;
     dueDate.classList.add('text-danger');
   } else {
-    dueDate.textContent = 'Due on ' + date;
+    dueDate.textContent = 'Due on ' + taskDate;
     dueDate.classList.add('text-good');
   }
 
