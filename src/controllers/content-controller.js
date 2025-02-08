@@ -1,4 +1,4 @@
-import { buildListItem } from "../components/content-list-item";
+import { buildEmptyListItem, buildListItem } from "../components/content-list-item";
 import { Dialog } from "../components/dialog";
 import { ContentData } from "../objects/content-data";
 import { DataController } from "./data-controller";
@@ -45,16 +45,21 @@ export function loadContent(name) {
   const tasksList = document.getElementById('content-list');
   tasksList.textContent = '';
 
-  const completedTasksItems = [];
-  tasks.forEach((task, index) => {
-    const taskItem = buildListItem(title, task, index);
-    if (task.isComplete) {
-      completedTasksItems.push(taskItem);
-    } else {
-      tasksList.appendChild(taskItem);
-    }
-  });
-  completedTasksItems.forEach(task => tasksList.appendChild(task));
+  if (tasks.length === 0) {
+    const emptyListItem = buildEmptyListItem();
+    tasksList.appendChild(emptyListItem);
+  } else {
+    const completedTasksItems = [];
+    tasks.forEach((task, index) => {
+      const taskItem = buildListItem(title, task, index);
+      if (task.isComplete) {
+        completedTasksItems.push(taskItem);
+      } else {
+        tasksList.appendChild(taskItem);
+      }
+    });
+    completedTasksItems.forEach(task => tasksList.appendChild(task));
+  }
 }
 
 const editProjectBtn = document.getElementById('edit-project');
