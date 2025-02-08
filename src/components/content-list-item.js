@@ -5,7 +5,7 @@ import { Dialog } from './dialog';
 import { DataController } from '../controllers/data-controller';
 import { selectProject, updateBadge } from '../controllers/sidebar-controller';
 import { Task } from '../objects/task';
-import { format, isBefore, isSameDay, isToday } from 'date-fns';
+import { format, isBefore, isToday } from 'date-fns';
 
 export function buildListItem(projectName, task, index) {
   const taskObject = new Task(task.name, task.description, task.dueDate, task.isComplete);
