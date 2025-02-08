@@ -8,6 +8,7 @@
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "predeploy": "npm run build",
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
