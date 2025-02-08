@@ -43,13 +43,14 @@ export function buildListItem(projectName, task, index) {
 
   const dueDate = document.createElement('p');
   dueDate.classList.add('due-date');
-  dueDate.textContent = 'Due on ' + date;
   const taskDate = format(new Date(date), 'yyyy-MM-dd');
   const todayDate = format(new Date(), 'yyyy-MM-dd');
   
   if (isBefore(taskDate, todayDate)) {
+    dueDate.textContent = 'Overdue since ' + date;
     dueDate.classList.add('text-danger');
   } else {
+    dueDate.textContent = 'Due on ' + date;
     dueDate.classList.add('text-good');
   }
 
