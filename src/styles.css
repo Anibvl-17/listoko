@@ -109,6 +109,15 @@ p, h1 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+#empty-list-item {
+  background: none;
+  color: gray;
+  text-align: center;
+  font-style: italic;
+  cursor: default;
+  display: block;
+}
+
 /* --- Icon buttons --- */
 .icon-btn {
   background-color: transparent;
